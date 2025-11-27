@@ -74,15 +74,17 @@ export async function runScheduledTask(id: number) {
         const action = JSON.parse(task.action);
 
         if (action.type === 'create_task') {
-            await prisma.task.create({
-                data: {
-                    title: action.title || 'Scheduled Task',
-                    priority: action.priority || 'Medium',
-                    status: 'Not Started',
-                    // Assign to a default user or system if needed, for now just basic fields
-                    dueDate: new Date(), // Due today
-                }
-            });
+  await prisma.task.create({
+    data: {
+      title: action.title ?? 'Scheduled Task',
+      priority: action.priority ?? 'Medium',
+      status: 'Pending',
+      // store as string so it fits most Prisma date/datetime types
+      dueDate: new Date().toISOString(),
+    },
+  });
+}
+
         } else if (action.type === 'check_lead_age') {
             // Find leads (Deals in 'Lead' stage) older than X days
             const days = action.days || 7;
