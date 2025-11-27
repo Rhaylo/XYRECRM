@@ -83,9 +83,7 @@ export async function runScheduledTask(id: number) {
       dueDate: new Date().toISOString(),
     },
   });
-}
-
-        } else if (action.type === 'check_lead_age') {
+} else if (action.type === 'check_lead_age') {
             // Find leads (Deals in 'Lead' stage) older than X days
             const days = action.days || 7;
             const cutoffDate = new Date();
