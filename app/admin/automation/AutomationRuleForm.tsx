@@ -168,20 +168,30 @@ export default function AutomationRuleForm({ initialData, isEditing = false }: A
                         <select
                             value={JSON.parse(formData.actions)[0]?.type || ''}
                             onChange={(e) => {
-                                const type = e.target.value;
-                                let newAction: any = { type };
+                               const type = e.target.value;
+let newAction: any = { type };
 
-                                if (type === 'create_task') {
-                                    newAction = { type, title: 'New Automated Task', priority: 'Medium' };
-                                }
+if (type === 'create_task') {
+  newAction = {
+    type,
+    title: 'New Automated Task',
+    priority: 'Medium',
+  };
+}
 
-                                if (type === 'update_deal_stage') {
-                                    newAction = { type, stage: 'Negotiation' };
-                                }
+if (type === 'update_deal_stage') {
+  newAction = {
+    type,
+    stage: 'Negotiation',
+  };
+}
 
-                                if (type === 'send_notification') {
-                                    newAction = { type, message: 'Automation triggered!' };
-                                }
+if (type === 'send_notification') {
+  newAction = {
+    type,
+    message: 'Automation triggered!',
+  };
+}
 
                                 setFormData({ ...formData, actions: JSON.stringify([newAction]) });
                             }}
